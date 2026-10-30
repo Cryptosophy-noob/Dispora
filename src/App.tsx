@@ -57,6 +57,7 @@ const content = {
       "The Macroregion is currently an initiative in development. Its organisational form and instruments of representation will be shaped through a participatory and transparent process.",
     explore: "Explore our principles",
     footerLine: "Many voices. One community.",
+    creatorCredit: "Website created by Danyeel Noach Spadoni.",
     privacy: "Privacy",
     legal: "Legal notice",
     stage: "Initiative in formation",
@@ -317,6 +318,7 @@ const content = {
       "המקרו־אזור נמצא כעת בשלבי פיתוח. מבנהו הארגוני וכלי הייצוג שלו יגובשו בתהליך משתף ושקוף.",
     explore: "לעקרונות המיזם",
     footerLine: "קולות רבים. קהילה אחת.",
+    creatorCredit: "האתר נוצר על ידי Danyeel Noach Spadoni.",
     privacy: "פרטיות",
     legal: "מידע משפטי",
     stage: "מיזם בתהליך התהוות",
@@ -930,6 +932,7 @@ export default function App() {
             ✡
           </span>
         </p>
+        <p className="footer-credit">{t.creatorCredit}</p>
       </footer>
     </div>
   );
