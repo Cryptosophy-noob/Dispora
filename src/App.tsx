@@ -1,4 +1,3 @@
-
 import { useState, type CSSProperties } from "react";
 import "./App.css";
 
@@ -15,6 +14,13 @@ type Page =
   | "consultation"
   | "contact";
 
+type SectionContent = {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  sections: { title: string; text: string }[];
+};
+
 const content = {
   en: {
     home: "Home",
@@ -26,36 +32,36 @@ const content = {
     documents: "Documents",
     consultation: "Consultation",
     contact: "Contact",
-    eyebrow: "ONE DIASPORA. A COMMON VOICE.",
+    eyebrow: "ONE DIASPORA. A COMMON FRAMEWORK.",
     title: "Transnational Macroregion of the Jewish Diaspora",
     subtitle:
-      "For autonomous, pluralistic and cross-denominational representation of Diaspora Judaism.",
+      "A proposed transnational framework for cooperation, democratic participation and institutional coordination across the Jewish Diaspora, inspired by European Macroregional Strategies and Euroregions.",
     discover: "Discover the project",
     manifesto: "Read the manifesto",
     justice: "Justice",
     justiceText: "Equal dignity and rights for every Jew, everywhere.",
     pluralism: "Pluralism",
     pluralismText: "One community, many traditions.",
-    representation: "Representation",
+    representation: "Cooperation",
     representationText:
-      "An independent voice in European and international institutions.",
+      "Connecting communities through transnational dialogue and coordination.",
     shabbat: "Shabbat",
     shabbatText: "Protection of Sabbath rest and religious freedom.",
     aboutEyebrow: "THE MACROREGION",
     aboutTitle: "A project of the Diaspora, for the Diaspora.",
     aboutText1:
-      "The Transnational Macroregion of the Jewish Diaspora seeks to give an autonomous, shared voice to a community living across different countries, cultures and traditions while sharing a common identity.",
+      "The Transnational Macroregion of the Jewish Diaspora is an independent initiative proposing a framework for cooperation, democratic participation and institutional coordination among Jewish communities, organisations and individuals across national borders.",
     aboutText2:
-      "It is not intended as a new religious denomination, but as a political and cultural space recognising the equal dignity of all Jewish currents: Orthodox, Masorti, Reform, Reconstructionist, Humanistic and secular.",
-    mission: "Our mission",
+      "Inspired by the European experience of Macroregional Strategies and Euroregions, the proposal adapts principles of transnational cooperation to the historical, cultural and institutional reality of the Jewish Diaspora. It is not a new religious denomination, nor does it seek to replace existing Jewish institutions. It aims to provide a space in which different Jewish identities and traditions can engage on an equal basis.",
+    mission: "Our principles",
     quote:
       "The Diaspora is not an absence, but a widespread presence. It is time to transform our plurality into a common strength.",
     quoteSource: "Project guiding idea",
     statusEyebrow: "AN INITIATIVE IN FORMATION",
-    statusTitle: "A project in formation",
+    statusTitle: "A proposal in development",
     statusText:
-      "The Macroregion is currently an initiative in development. Its organisational form and instruments of representation will be shaped through a participatory and transparent process.",
-    explore: "Explore our principles",
+      "The Macroregion is currently an independent initiative in its formative and consultative stage. Its possible organisational form, participation mechanisms and instruments of cooperation have not yet been established. They will require discussion, consultation and a transparent founding process.",
+    explore: "Explore the institutional proposal",
     footerLine: "Many voices. One community.",
     creatorCredit: "Website created by Danyeel Noach Spadoni.",
     privacy: "Privacy",
@@ -64,28 +70,49 @@ const content = {
     imageAlt: "A symbolic image representing the Jewish Diaspora",
     backHome: "Back to home",
     learnMore: "Explore this section",
-    pageIntro: "Explore the vision, principles and proposed areas of work of the initiative.",
+    pageIntro:
+      "Explore the vision, principles and proposed areas of work of the initiative.",
     pages: {
       macroregion: {
         eyebrow: "A SHARED TRANSNATIONAL SPACE",
         title: "The Macroregion",
         intro:
-          "A framework for cooperation, dialogue and shared representation across the Jewish Diaspora.",
+          "A proposed transnational macroregional framework for cooperation, dialogue and institutional coordination across the Jewish Diaspora, inspired by European Macroregional Strategies and Euroregions.",
         sections: [
           {
-            title: "A community across borders",
+            title: "An institutional model inspired by Europe",
             text:
-              "Jewish life extends across states, languages, cultures and different forms of religious and secular belonging. The Macroregion seeks to recognise this reality and create a space for cooperation that does not depend on a single national or denominational framework.",
+              "The proposal draws inspiration from European Macroregional Strategies and Euroregions. These experiences demonstrate different ways in which communities, institutions and territories can cooperate across national borders through shared objectives, coordination and participation. The Macroregion seeks to adapt relevant principles of this experience to the specific historical, cultural and institutional reality of the Jewish Diaspora. This is an inspiration and a point of reference, not a claim of legal or institutional equivalence.",
           },
           {
-            title: "Autonomy and pluralism",
+            title: "A macroregion without territorial continuity",
             text:
-              "The initiative aims to be autonomous from individual religious denominations and political parties. It seeks to bring different Jewish experiences into dialogue without erasing their differences.",
+              "Unlike geographical macroregions, the Jewish Diaspora is not defined by a continuous territory. It is a transnational historical, cultural and identity-based reality, composed of communities and individuals living in different countries. The proposed framework therefore places cooperation, shared identity and voluntary participation at its centre rather than territorial boundaries.",
           },
           {
-            title: "A transnational perspective",
+            title: "Transnational cooperation and shared governance",
             text:
-              "The proposed macroregional dimension is intended to connect communities, associations and individuals across borders, while respecting existing institutions, local laws and the autonomy of participating organisations.",
+              "The initiative proposes a framework through which Jewish communities, associations and individuals could identify common priorities, exchange experience and develop joint initiatives. Possible mechanisms could include consultation, representative participation, thematic working groups and coordination between different levels of organisation. These mechanisms remain proposals to be discussed and developed.",
+          },
+          {
+            title: "Autonomy and institutional complementarity",
+            text:
+              "The Macroregion is not intended to replace existing Jewish communities, religious movements, representative organisations or cultural institutions. It seeks to complement their work by creating an additional space for transnational dialogue and cooperation. Participating organisations would retain their own legal identity, religious autonomy, internal governance and decision-making powers.",
+          },
+          {
+            title: "A pluralistic and democratic framework",
+            text:
+              "The proposed framework is open to the diversity of Jewish life, including Orthodox, Masorti, Reform, Reconstructionist, Humanistic, secular and unaffiliated perspectives. Any future representative structure should be based on transparent procedures, democratic participation, accountability and respect for the different forms of Jewish belonging.",
+          },
+          {
+            title: "A European beginning, an international horizon",
+            text:
+              "The initiative initially focuses on the European Jewish Diaspora, where European experiences of cross-border cooperation provide a relevant point of reference. Its underlying approach could eventually support dialogue and cooperation beyond Europe, while recognising the different legal, political and institutional contexts in which Jewish communities operate.",
+          },
+          {
+            title: "A proposal in formation",
+            text:
+              "The Transnational Macroregion is currently an independent initiative in a preliminary and consultative stage. It has no formal representative mandate, legal recognition or established institutional authority. Its purpose, structure and possible mechanisms must be examined through dialogue with Jewish communities, organisations, researchers and interested individuals.",
           },
         ],
       },
@@ -93,7 +120,7 @@ const content = {
         eyebrow: "FOUNDING VALUES",
         title: "Principles",
         intro:
-          "The initiative is guided by equality, pluralism, democratic participation and respect for Jewish diversity.",
+          "The initiative is guided by equality, pluralism, democratic participation, transnational cooperation and respect for Jewish diversity.",
         sections: [
           {
             title: "Equal dignity",
@@ -116,6 +143,16 @@ const content = {
               "Religious practice, non-practice and individual conscience should be respected, within the framework of fundamental rights and applicable law.",
           },
           {
+            title: "Transnational cooperation",
+            text:
+              "The initiative seeks to encourage cooperation across national borders, connecting communities and individuals around shared priorities while respecting their different circumstances.",
+          },
+          {
+            title: "Subsidiarity and institutional autonomy",
+            text:
+              "Decisions should be taken at the level most appropriate to the matter concerned. Local communities and existing organisations should retain their autonomy, with transnational coordination serving shared objectives rather than replacing local authority.",
+          },
+          {
             title: "Solidarity and responsibility",
             text:
               "The initiative seeks to encourage mutual support, dialogue and responsibility among Jewish communities and with wider society.",
@@ -126,27 +163,37 @@ const content = {
         eyebrow: "A MODEL TO BE DEVELOPED",
         title: "Institutions",
         intro:
-          "The institutional architecture has not yet been established. The following are possible areas for discussion, not existing bodies or powers.",
+          "The institutional architecture has not yet been established. Inspired by European models of multilevel and transnational cooperation, the following are possible areas for discussion, not existing bodies, powers or adopted structures.",
         sections: [
           {
             title: "A participatory assembly",
             text:
-              "A future assembly could provide a forum for representatives of communities, associations and individual members, subject to rules developed through a transparent founding process.",
+              "A future assembly could provide a forum for representatives of communities, associations and individual members. Its composition, electoral or appointment procedures and decision-making powers would need to be defined through an inclusive and transparent founding process.",
+          },
+          {
+            title: "Multilevel participation",
+            text:
+              "A possible governance model could connect local communities, national organisations and transnational structures. The purpose would be to facilitate dialogue and coordination while respecting the autonomy and responsibilities of each level.",
           },
           {
             title: "Coordination and working groups",
             text:
-              "The initiative could establish thematic working groups on culture, education, religious freedom, social inclusion and international cooperation.",
+              "The initiative could establish thematic working groups on culture, education, religious freedom, social inclusion, public policy and international cooperation. Their tasks and responsibilities would be defined according to shared priorities.",
           },
           {
             title: "Ethics and transparency",
             text:
-              "Any future governance model should define conflicts of interest, decision-making procedures, financial transparency and mechanisms for accountability.",
+              "Any future governance model should define conflicts of interest, decision-making procedures, financial transparency, accountability and safeguards against the concentration of power.",
+          },
+          {
+            title: "Relations with existing institutions",
+            text:
+              "The proposed framework should be complementary to existing Jewish institutions and organisations. Its relationship with them would be based on dialogue, cooperation and respect for their independent mandates and legal identities.",
           },
           {
             title: "A gradual founding process",
             text:
-              "The institutional model would need to be discussed, documented and adopted through an agreed process before any body could claim a formal mandate to represent participants.",
+              "The institutional model would need to be discussed, documented and adopted through an agreed process before any body could claim a formal mandate to represent participants. Consultation and public scrutiny should precede institutional establishment.",
           },
         ],
       },
@@ -154,12 +201,12 @@ const content = {
         eyebrow: "DIGNITY, FREEDOM AND PARTICIPATION",
         title: "Rights",
         intro:
-          "The initiative aims to promote the protection of Jewish life and equal participation in society, in accordance with fundamental rights and the law.",
+          "The initiative aims to promote the protection of Jewish life and equal participation in society, in accordance with fundamental rights and applicable law. The following are policy objectives, not rights conferred or guaranteed by the initiative itself.",
         sections: [
           {
             title: "Freedom of religion and belief",
             text:
-              "Protecting the right to practise, change, express or not practise a religion, subject to the protections and limits established by law.",
+              "Promoting the right to practise, change, express or not practise a religion, subject to the protections and limits established by law.",
           },
           {
             title: "Protection against antisemitism",
@@ -172,7 +219,7 @@ const content = {
               "Promoting the ability of Jewish communities and individuals to maintain their cultural, linguistic, religious and educational life.",
           },
           {
-            title: "Sabbath and religious observance",
+            title: "Shabbat and religious observance",
             text:
               "Encouraging reasonable respect for Shabbat and other religious observances in public life, education and employment, consistently with applicable law.",
           },
@@ -187,7 +234,7 @@ const content = {
         eyebrow: "FROM PRINCIPLES TO ACTION",
         title: "Projects",
         intro:
-          "Potential areas of work that could be developed in consultation with communities, associations and interested individuals.",
+          "Potential areas of work that could be developed in consultation with communities, associations and interested individuals. These are proposed fields of activity, not a list of established programmes.",
         sections: [
           {
             title: "Education and research",
@@ -220,7 +267,7 @@ const content = {
         eyebrow: "FOUNDING MATERIALS",
         title: "Documents",
         intro:
-          "This section will host the project's texts as they are prepared, reviewed and approved. Drafts will be clearly distinguished from adopted documents.",
+          "This section hosts the project's texts as they are prepared and reviewed. Drafts are clearly distinguished from adopted documents. Publication does not imply institutional approval or a representative mandate.",
         sections: [
           {
             title: "Founding manifesto",
@@ -240,19 +287,36 @@ const content = {
           {
             title: "Public consultations",
             text:
-              "Future consultation materials and summaries of contributions, where publication is appropriate and participants' privacy is protected.",
+              "Consultation materials and summaries of contributions, where publication is appropriate and participants' privacy is protected.",
           },
         ],
       },
       consultation: {
         eyebrow: "AN OPEN AND PARTICIPATORY PROCESS",
         title: "Public Consultation",
-        intro: "The initiative is at a preliminary stage. This consultation is intended to collect questions, objections and proposals before any institutional model or representative mandate is adopted.",
+        intro:
+          "The initiative is at a preliminary stage. This consultation is intended to collect questions, objections and proposals before any institutional model or representative mandate is adopted.",
         sections: [
-          { title: "Who can contribute", text: "Jewish individuals, including those not affiliated with an established community, as well as communities, associations, researchers and other interested organisations may contribute." },
-          { title: "Questions for discussion", text: "How should individual and collective participation work? What safeguards are needed for pluralism, transparency and accountability? Which issues should be prioritised? What relationship should the initiative maintain with existing Jewish organisations and with Israel?" },
-          { title: "No mandate is implied", text: "Taking part in a consultation does not constitute membership, endorsement or authorisation to represent any person, community or organisation. The project does not currently claim to represent the Jewish Diaspora." },
-          { title: "How to contribute", text: "Send written comments, questions or proposals to transnationaldiaspora@proton.me. Contributions should identify whether they may be quoted publicly; personal data should not be included unless necessary." },
+          {
+            title: "Who can contribute",
+            text:
+              "Jewish individuals, including those not affiliated with an established community, as well as communities, associations, researchers and other interested organisations may contribute.",
+          },
+          {
+            title: "Questions for discussion",
+            text:
+              "How should individual and collective participation work? What safeguards are needed for pluralism, transparency and accountability? Which issues should be prioritised? Could principles drawn from European Macroregional Strategies and Euroregions be adapted to the Jewish Diaspora? What relationship should the initiative maintain with existing Jewish organisations and with Israel?",
+          },
+          {
+            title: "No mandate is implied",
+            text:
+              "Taking part in a consultation does not constitute membership, endorsement or authorisation to represent any person, community or organisation. The project does not currently claim to represent the Jewish Diaspora.",
+          },
+          {
+            title: "How to contribute",
+            text:
+              "Send written comments, questions or proposals to transnationaldiaspora@proton.me. Contributions should identify whether they may be quoted publicly; personal data should not be included unless necessary.",
+          },
         ],
       },
       contact: {
@@ -280,6 +344,7 @@ const content = {
       },
     },
   },
+
   he: {
     home: "ראשי",
     macroregion: "המקרו־אזור",
@@ -290,33 +355,35 @@ const content = {
     documents: "מסמכים",
     consultation: "התייעצות ציבורית",
     contact: "יצירת קשר",
-    eyebrow: "תפוצה אחת. קול משותף.",
+    eyebrow: "תפוצה אחת. מסגרת משותפת.",
     title: "המקרו־אזור הטרנס־לאומי של התפוצה היהודית",
-    subtitle: "לייצוג אוטונומי, פלורליסטי ורב־זרמי של יהדות התפוצות.",
+    subtitle:
+      "מסגרת מוצעת לשיתוף פעולה טרנס־לאומי, להשתתפות דמוקרטית ולתיאום מוסדי ברחבי התפוצה היהודית, בהשראת האסטרטגיות המקרו־אזוריות האירופיות והאירו־אזורים.",
     discover: "הכירו את המיזם",
     manifesto: "קראו את המניפסט",
     justice: "צדק",
     justiceText: "כבוד וזכויות שווים לכל יהודי ויהודייה, בכל מקום.",
     pluralism: "פלורליזם",
     pluralismText: "קהילה אחת, מסורות רבות.",
-    representation: "ייצוג",
-    representationText: "קול עצמאי במוסדות אירופיים ובינלאומיים.",
+    representation: "שיתוף פעולה",
+    representationText: "חיבור בין קהילות באמצעות דיאלוג ותיאום טרנס־לאומיים.",
     shabbat: "שבת",
     shabbatText: "הגנה על מנוחת השבת ועל חופש הדת.",
     aboutEyebrow: "המקרו־אזור",
     aboutTitle: "מיזם של התפוצה, למען התפוצה.",
     aboutText1:
-      "המקרו־אזור הטרנס־לאומי של התפוצה היהודית מבקש להעניק קול משותף ועצמאי לקהילה החיה במדינות, בתרבויות ובמסורות שונות, תוך שיתוף זהות יהודית.",
+      "המקרו־אזור הטרנס־לאומי של התפוצה היהודית הוא יוזמה עצמאית המציעה מסגרת לשיתוף פעולה, להשתתפות דמוקרטית ולתיאום מוסדי בין קהילות, ארגונים ויחידים יהודים מעבר לגבולות לאומיים.",
     aboutText2:
-      "אין מדובר בזרם דתי חדש, אלא במרחב פוליטי ותרבותי המבקש להכיר בכבודן השווה של מסורות יהודיות שונות: אורתודוקסיות, מסורתיות, רפורמיות, רקונסטרוקציוניסטיות, הומניסטיות וחילוניות.",
-    mission: "החזון שלנו",
-    quote: "התפוצה אינה היעדר, אלא נוכחות רחבת־היקף. הגיע הזמן להפוך את ריבוי הקולות שלנו לכוח משותף.",
+      "ההצעה שואבת השראה מהניסיון האירופי באסטרטגיות מקרו־אזוריות ובאירו־אזורים, ומתאימה עקרונות של שיתוף פעולה טרנס־לאומי למציאות ההיסטורית, התרבותית והמוסדית של התפוצה היהודית. אין מדובר בזרם דתי חדש או בניסיון להחליף מוסדות יהודיים קיימים, אלא בהצעה ליצור מרחב נוסף לדיאלוג ולשיתוף פעולה בין זהויות ומסורות יהודיות שונות.",
+    mission: "העקרונות שלנו",
+    quote:
+      "התפוצה אינה היעדר, אלא נוכחות רחבת־היקף. הגיע הזמן להפוך את ריבוי הקולות שלנו לכוח משותף.",
     quoteSource: "הרעיון המנחה של המיזם",
     statusEyebrow: "מיזם בתהליך התהוות",
-    statusTitle: "מיזם בתהליך התהוות",
+    statusTitle: "הצעה הנמצאת בתהליך פיתוח",
     statusText:
-      "המקרו־אזור נמצא כעת בשלבי פיתוח. מבנהו הארגוני וכלי הייצוג שלו יגובשו בתהליך משתף ושקוף.",
-    explore: "לעקרונות המיזם",
+      "המקרו־אזור הוא כיום יוזמה עצמאית הנמצאת בשלב ראשוני של גיבוש והתייעצות. המבנה הארגוני האפשרי, מנגנוני ההשתתפות וכלי שיתוף הפעולה טרם נקבעו. פיתוחם מחייב דיון, התייעצות ותהליך ייסוד שקוף.",
+    explore: "לעיון בהצעה המוסדית",
     footerLine: "קולות רבים. קהילה אחת.",
     creatorCredit: "האתר נוצר על ידי Danyeel Noach Spadoni.",
     privacy: "פרטיות",
@@ -330,101 +397,274 @@ const content = {
       macroregion: {
         eyebrow: "מרחב טרנס־לאומי משותף",
         title: "המקרו־אזור",
-        intro: "מסגרת לשיתוף פעולה, לדיאלוג ולייצוג משותף ברחבי התפוצה היהודית.",
+        intro:
+          "מסגרת מקרו־אזורית טרנס־לאומית מוצעת לשיתוף פעולה, לדיאלוג ולתיאום מוסדי ברחבי התפוצה היהודית, בהשראת האסטרטגיות המקרו־אזוריות האירופיות והאירו־אזורים.",
         sections: [
-          { title: "קהילה החוצה גבולות", text: "החיים היהודיים מתקיימים במדינות, בשפות, בתרבויות ובצורות שונות של השתייכות דתית וחילונית. המיזם מבקש להכיר במציאות זו וליצור מרחב לשיתוף פעולה שאינו מוגבל למסגרת לאומית או זרם דתי יחיד." },
-          { title: "אוטונומיה ופלורליזם", text: "המיזם שואף לפעול באופן עצמאי מזרמים דתיים וממפלגות פוליטיות מסוימים, ולאפשר מפגש בין חוויות יהודיות שונות מבלי למחוק את ההבדלים ביניהן." },
-          { title: "נקודת מבט טרנס־לאומית", text: "המסגרת המוצעת נועדה לחבר קהילות, עמותות ויחידים מעבר לגבולות, תוך כיבוד מוסדות קיימים, חוקים מקומיים ועצמאותם של הארגונים המשתתפים." },
+          {
+            title: "מודל מוסדי בהשראת אירופה",
+            text:
+              "ההצעה שואבת השראה מהאסטרטגיות המקרו־אזוריות האירופיות ומהאירו־אזורים. מודלים אלה מדגימים דרכים שונות שבהן קהילות, מוסדות ואזורים יכולים לשתף פעולה מעבר לגבולות לאומיים באמצעות מטרות משותפות, תיאום והשתתפות. המקרו־אזור מבקש להתאים עקרונות רלוונטיים מניסיון זה למציאות ההיסטורית, התרבותית והמוסדית הייחודית של התפוצה היהודית. מדובר בהשראה ובנקודת ייחוס, ולא בטענה לשקילות משפטית או מוסדית.",
+          },
+          {
+            title: "מקרו־אזור ללא רציפות טריטוריאלית",
+            text:
+              "בניגוד למקרו־אזורים גאוגרפיים, התפוצה היהודית אינה מוגדרת באמצעות שטח רציף. היא מציאות היסטורית, תרבותית וזהותית טרנס־לאומית, המורכבת מקהילות ומיחידים החיים במדינות שונות. לכן המסגרת המוצעת מציבה במרכזה שיתוף פעולה, זהות משותפת והשתתפות מרצון, ולא גבולות טריטוריאליים.",
+          },
+          {
+            title: "שיתוף פעולה טרנס־לאומי וממשל משותף",
+            text:
+              "המיזם מציע מסגרת שבאמצעותה קהילות, עמותות ויחידים יהודים יוכלו לזהות סדרי עדיפויות משותפים, לחלוק ניסיון ולפתח יוזמות משותפות. מנגנונים אפשריים עשויים לכלול התייעצות, השתתפות ייצוגית, קבוצות עבודה נושאיות ותיאום בין רמות ארגוניות שונות. מנגנונים אלה הם בגדר הצעות לדיון ולפיתוח.",
+          },
+          {
+            title: "אוטונומיה והשלמה מוסדית",
+            text:
+              "המקרו־אזור אינו מיועד להחליף קהילות יהודיות קיימות, זרמים דתיים, ארגונים ייצוגיים או מוסדות תרבות. מטרתו להשלים את פעילותם באמצעות יצירת מרחב נוסף לדיאלוג ולשיתוף פעולה טרנס־לאומי. ארגונים משתתפים ישמרו על זהותם המשפטית, עצמאותם הדתית, הממשל הפנימי שלהם וסמכויות קבלת ההחלטות שלהם.",
+          },
+          {
+            title: "מסגרת פלורליסטית ודמוקרטית",
+            text:
+              "המסגרת המוצעת פתוחה למגוון החיים היהודיים, לרבות נקודות מבט אורתודוקסיות, מסורתיות, רפורמיות, רקונסטרוקציוניסטיות, הומניסטיות, חילוניות וכאלה שאינן משויכות לארגון. כל מבנה ייצוגי עתידי צריך להתבסס על הליכים שקופים, השתתפות דמוקרטית, אחריותיות וכבוד לצורות השונות של השתייכות יהודית.",
+          },
+          {
+            title: "התחלה אירופית, אופק בינלאומי",
+            text:
+              "המיזם מתמקד בתחילה בתפוצה היהודית באירופה, שבה הניסיון האירופי בשיתוף פעולה חוצה גבולות מספק נקודת ייחוס רלוונטית. הגישה העומדת בבסיסו עשויה בעתיד לתמוך בדיאלוג ובשיתוף פעולה גם מחוץ לאירופה, תוך הכרה בהקשרים המשפטיים, הפוליטיים והמוסדיים השונים שבהם פועלות קהילות יהודיות.",
+          },
+          {
+            title: "הצעה בתהליך התהוות",
+            text:
+              "המקרו־אזור הטרנס־לאומי הוא כיום יוזמה עצמאית הנמצאת בשלב ראשוני של גיבוש והתייעצות. אין לו מנדט ייצוגי רשמי, הכרה משפטית או סמכות מוסדית מבוססת. מטרתו, מבנהו והמנגנונים האפשריים שלו צריכים להיבחן באמצעות דיאלוג עם קהילות יהודיות, ארגונים, חוקרים ויחידים המעוניינים בכך.",
+          },
         ],
       },
       principles: {
         eyebrow: "ערכי יסוד",
         title: "עקרונות",
-        intro: "המיזם מונחה על ידי שוויון, פלורליזם, השתתפות דמוקרטית וכבוד למגוון היהודי.",
+        intro:
+          "המיזם מונחה על ידי שוויון, פלורליזם, השתתפות דמוקרטית, שיתוף פעולה טרנס־לאומי וכבוד למגוון היהודי.",
         sections: [
-          { title: "כבוד שווה", text: "כל אדם זכאי לכבוד שווה ולהגנה מפני אפליה. יש להתייחס בכבוד לזהויות ולמסורות יהודיות שונות." },
-          { title: "פלורליזם דתי ותרבותי", text: "נקודות מבט אורתודוקסיות, מסורתיות, רפורמיות, רקונסטרוקציוניסטיות, הומניסטיות וחילוניות יוכלו להשתתף מבלי שמסורת אחת תטען לסמכות בלעדית על הקהילה כולה." },
-          { title: "השתתפות דמוקרטית", text: "כל מבנה ייצוגי עתידי צריך להתפתח באמצעות הליכים שקופים, התייעצות משמעותית ואחריותיות ברורה." },
-          { title: "חופש המצפון", text: "יש לכבד קיום דתי, היעדר קיום דתי ומצפון אישי, בהתאם לזכויות היסוד ולדין החל." },
-          { title: "סולידריות ואחריות", text: "המיזם מבקש לעודד תמיכה הדדית, דיאלוג ואחריות בין קהילות יהודיות ובינן לבין החברה הרחבה." },
+          {
+            title: "כבוד שווה",
+            text:
+              "כל אדם זכאי לכבוד שווה ולהגנה מפני אפליה. יש להתייחס בכבוד לזהויות ולמסורות יהודיות שונות.",
+          },
+          {
+            title: "פלורליזם דתי ותרבותי",
+            text:
+              "נקודות מבט אורתודוקסיות, מסורתיות, רפורמיות, רקונסטרוקציוניסטיות, הומניסטיות וחילוניות יוכלו להשתתף מבלי שמסורת אחת תטען לסמכות בלעדית על הקהילה כולה.",
+          },
+          {
+            title: "השתתפות דמוקרטית",
+            text:
+              "כל מבנה ייצוגי עתידי צריך להתפתח באמצעות הליכים שקופים, התייעצות משמעותית ואחריותיות ברורה.",
+          },
+          {
+            title: "חופש המצפון",
+            text:
+              "יש לכבד קיום דתי, היעדר קיום דתי ומצפון אישי, בהתאם לזכויות היסוד ולדין החל.",
+          },
+          {
+            title: "שיתוף פעולה טרנס־לאומי",
+            text:
+              "המיזם מבקש לעודד שיתוף פעולה מעבר לגבולות לאומיים, לחבר בין קהילות ויחידים סביב סדרי עדיפויות משותפים תוך כיבוד נסיבותיהם השונות.",
+          },
+          {
+            title: "סובסידיאריות ואוטונומיה מוסדית",
+            text:
+              "החלטות צריכות להתקבל ברמה המתאימה ביותר לנושא הנדון. קהילות מקומיות וארגונים קיימים ישמרו על עצמאותם, והתיאום הטרנס־לאומי ישרת מטרות משותפות מבלי להחליף סמכות מקומית.",
+          },
+          {
+            title: "סולידריות ואחריות",
+            text:
+              "המיזם מבקש לעודד תמיכה הדדית, דיאלוג ואחריות בין קהילות יהודיות ובינן לבין החברה הרחבה.",
+          },
         ],
       },
       institutions: {
         eyebrow: "מודל שטרם גובש",
         title: "מוסדות",
-        intro: "המבנה המוסדי טרם הוקם. הנושאים הבאים הם אפשרויות לדיון ולא גופים או סמכויות קיימים.",
+        intro:
+          "המבנה המוסדי טרם הוקם. בהשראת מודלים אירופיים של שיתוף פעולה רב־רמתי וטרנס־לאומי, הנושאים הבאים מוצעים לדיון ואינם גופים, סמכויות או מבנים קיימים.",
         sections: [
-          { title: "אספה משתפת", text: "אספה עתידית עשויה לשמש מסגרת לנציגי קהילות, עמותות וחברים יחידים, בכפוף לכללים שיגובשו בתהליך ייסוד שקוף." },
-          { title: "תיאום וקבוצות עבודה", text: "ניתן יהיה לבחון קבוצות עבודה בנושאי תרבות, חינוך, חופש דת, הכלה חברתית ושיתוף פעולה בינלאומי." },
-          { title: "אתיקה ושקיפות", text: "כל מודל ממשל עתידי צריך להגדיר ניגודי עניינים, הליכי קבלת החלטות, שקיפות פיננסית ומנגנוני אחריותיות." },
-          { title: "תהליך ייסוד הדרגתי", text: "יש לדון במודל המוסדי, לתעדו ולאמצו בהליך מוסכם לפני שגוף כלשהו יוכל לטעון למנדט רשמי לייצוג המשתתפים." },
+          {
+            title: "אספה משתפת",
+            text:
+              "אספה עתידית עשויה לשמש מסגרת לנציגי קהילות, עמותות וחברים יחידים. הרכבה, הליכי הבחירה או המינוי שלה וסמכויות קבלת ההחלטות יוגדרו בתהליך ייסוד כולל ושקוף.",
+          },
+          {
+            title: "השתתפות רב־רמתית",
+            text:
+              "מודל ממשל אפשרי עשוי לחבר בין קהילות מקומיות, ארגונים לאומיים ומבנים טרנס־לאומיים. מטרתו תהיה לאפשר דיאלוג ותיאום תוך כיבוד העצמאות והאחריות של כל רמה.",
+          },
+          {
+            title: "תיאום וקבוצות עבודה",
+            text:
+              "המיזם יוכל לבחון הקמת קבוצות עבודה בנושאי תרבות, חינוך, חופש דת, הכלה חברתית, מדיניות ציבורית ושיתוף פעולה בינלאומי. משימותיהן ואחריותן יוגדרו בהתאם לסדרי עדיפויות משותפים.",
+          },
+          {
+            title: "אתיקה ושקיפות",
+            text:
+              "כל מודל ממשל עתידי צריך להגדיר ניגודי עניינים, הליכי קבלת החלטות, שקיפות פיננסית, אחריותיות ואמצעי הגנה מפני ריכוז כוח.",
+          },
+          {
+            title: "יחסים עם מוסדות קיימים",
+            text:
+              "המסגרת המוצעת צריכה להשלים את פעילותם של מוסדות וארגונים יהודיים קיימים. יחסיה עמם יתבססו על דיאלוג, שיתוף פעולה וכיבוד המנדטים העצמאיים והזהויות המשפטיות שלהם.",
+          },
+          {
+            title: "תהליך ייסוד הדרגתי",
+            text:
+              "יש לדון במודל המוסדי, לתעדו ולאמצו בהליך מוסכם לפני שגוף כלשהו יוכל לטעון למנדט רשמי לייצוג המשתתפים. התייעצות ובחינה ציבורית צריכות להקדים את הקמתם של מוסדות.",
+          },
         ],
       },
       rights: {
         eyebrow: "כבוד, חירות והשתתפות",
         title: "זכויות",
-        intro: "המיזם מבקש לקדם את ההגנה על החיים היהודיים ואת ההשתתפות השווה בחברה, בהתאם לזכויות היסוד ולדין.",
+        intro:
+          "המיזם מבקש לקדם את ההגנה על החיים היהודיים ואת ההשתתפות השווה בחברה, בהתאם לזכויות היסוד ולדין החל. הנושאים הבאים הם יעדי מדיניות ולא זכויות שהמיזם עצמו מעניק או מבטיח.",
         sections: [
-          { title: "חופש דת ואמונה", text: "הגנה על הזכות לקיים דת, לשנות אמונה, להביע אותה או שלא לקיימה, בכפוף להגנות ולמגבלות הקבועות בחוק." },
-          { title: "הגנה מפני אנטישמיות", text: "תמיכה בחינוך, בהעלאת מודעות ציבורית, במניעה ובתגובות הולמות לאנטישמיות ולאפליה נגד יהודים." },
-          { title: "חיי תרבות וקהילה", text: "קידום יכולתן של קהילות ויחידים יהודים לקיים חיים תרבותיים, לשוניים, דתיים וחינוכיים." },
-          { title: "שבת וקיום מצוות", text: "עידוד התחשבות ראויה בשבת ובמנהגים דתיים בחיים הציבוריים, בחינוך ובעבודה, בהתאם לדין החל." },
-          { title: "גישה שווה והכלה", text: "קידום השתתפות ויחס שווה תוך הכרה במגוון הזהויות היהודיות, הרקעים המשפחתיים והאמונות האישיות." },
+          {
+            title: "חופש דת ואמונה",
+            text:
+              "קידום הזכות לקיים דת, לשנות אמונה, להביע אותה או שלא לקיימה, בכפוף להגנות ולמגבלות הקבועות בחוק.",
+          },
+          {
+            title: "הגנה מפני אנטישמיות",
+            text:
+              "תמיכה בחינוך, בהעלאת מודעות ציבורית, במניעה ובתגובות הולמות לאנטישמיות ולאפליה נגד יהודים.",
+          },
+          {
+            title: "חיי תרבות וקהילה",
+            text:
+              "קידום יכולתן של קהילות ויחידים יהודים לקיים חיים תרבותיים, לשוניים, דתיים וחינוכיים.",
+          },
+          {
+            title: "שבת וקיום מצוות",
+            text:
+              "עידוד התחשבות ראויה בשבת ובמנהגים דתיים בחיים הציבוריים, בחינוך ובעבודה, בהתאם לדין החל.",
+          },
+          {
+            title: "גישה שווה והכלה",
+            text:
+              "קידום השתתפות ויחס שווה תוך הכרה במגוון הזהויות היהודיות, הרקעים המשפחתיים והאמונות האישיות.",
+          },
         ],
       },
       projects: {
         eyebrow: "מעקרונות לפעולה",
         title: "מיזמים",
-        intro: "תחומי פעילות אפשריים שיפותחו בהתייעצות עם קהילות, עמותות ויחידים המעוניינים בכך.",
+        intro:
+          "תחומי פעילות אפשריים שיפותחו בהתייעצות עם קהילות, עמותות ויחידים המעוניינים בכך. אלה תחומי פעילות מוצעים ולא רשימה של תוכניות שכבר הוקמו.",
         sections: [
-          { title: "חינוך ומחקר", text: "משאבים, סמינרים ומחקר משותף על ההיסטוריה היהודית, חיי התפוצה כיום, אנטישמיות ומגוון תרבותי." },
-          { title: "דיאלוג בין מסורות", text: "מפגשים ויוזמות המעודדים דיאלוג בין נקודות מבט דתיות, תרבותיות וחילוניות ביהדות." },
-          { title: "זכויות ומדיניות ציבורית", text: "מעקב אחר התפתחויות מדיניות רלוונטיות, שיתוף מידע וגיבוש הצעות בנושאים הנוגעים לחיים היהודיים ולחופש הדת." },
-          { title: "שיתוף פעולה טרנס־לאומי", text: "יצירת הזדמנויות לקהילות, לארגוני תרבות וליחידים במדינות שונות לחלוק ניסיון ולפתח יוזמות משותפות." },
-          { title: "שבת וחיי תרבות", text: "בחינת דרכים מעשיות לתמיכה ברציפות התרבות היהודית, בשמירת שבת ובהבנה הציבורית של משמעותה." },
+          {
+            title: "חינוך ומחקר",
+            text:
+              "משאבים, סמינרים ומחקר משותף על ההיסטוריה היהודית, חיי התפוצה כיום, אנטישמיות ומגוון תרבותי.",
+          },
+          {
+            title: "דיאלוג בין מסורות",
+            text:
+              "מפגשים ויוזמות המעודדים דיאלוג בין נקודות מבט דתיות, תרבותיות וחילוניות ביהדות.",
+          },
+          {
+            title: "זכויות ומדיניות ציבורית",
+            text:
+              "מעקב אחר התפתחויות מדיניות רלוונטיות, שיתוף מידע וגיבוש הצעות בנושאים הנוגעים לחיים היהודיים ולחופש הדת.",
+          },
+          {
+            title: "שיתוף פעולה טרנס־לאומי",
+            text:
+              "יצירת הזדמנויות לקהילות, לארגוני תרבות וליחידים במדינות שונות לחלוק ניסיון ולפתח יוזמות משותפות.",
+          },
+          {
+            title: "שבת וחיי תרבות",
+            text:
+              "בחינת דרכים מעשיות לתמיכה ברציפות התרבות היהודית, בשמירת שבת ובהבנה הציבורית של משמעותה.",
+          },
         ],
       },
       documents: {
         eyebrow: "מסמכי יסוד",
         title: "מסמכים",
-        intro: "במדור זה יפורסמו מסמכי המיזם לאחר הכנתם, בחינתם ואישורם. טיוטות יובחנו בבירור ממסמכים שאומצו.",
+        intro:
+          "במדור זה מוצגים מסמכי המיזם כפי שהם מוכנים ונבחנים. טיוטות מובחנות בבירור ממסמכים שאומצו. פרסום מסמך אינו מעיד על אישור מוסדי או על קיומו של מנדט ייצוגי.",
         sections: [
-          { title: "מניפסט מייסד", text: "הצהרת מטרות המסבירה את הרקע למיזם, את היקפו המיועד ואת הערכים המנחים את פיתוחו." },
-          { title: "עקרונות ואמנה", text: "מסגרת מוצעת המתארת את מחויבויות המיזם, את עקרונות ההשתתפות ואת גישתו לפלורליזם ולאחריותיות." },
-          { title: "הצעות מוסדיות", text: "מסמכי דיון על הסדרי ממשל אפשריים, ייצוג, קבלת החלטות ויחסים עם ארגונים קיימים." },
-          { title: "התייעצויות ציבוריות", text: "חומרי התייעצות עתידיים וסיכומי תגובות, ככל שפרסומם מתאים ותוך שמירה על פרטיות המשתתפים." },
+          {
+            title: "מניפסט מייסד",
+            text:
+              "הצהרת מטרות המסבירה את הרקע למיזם, את היקפו המיועד ואת הערכים המנחים את פיתוחו.",
+          },
+          {
+            title: "עקרונות ואמנה",
+            text:
+              "מסגרת מוצעת המתארת את מחויבויות המיזם, את עקרונות ההשתתפות ואת גישתו לפלורליזם ולאחריותיות.",
+          },
+          {
+            title: "הצעות מוסדיות",
+            text:
+              "מסמכי דיון על הסדרי ממשל אפשריים, ייצוג, קבלת החלטות ויחסים עם ארגונים קיימים.",
+          },
+          {
+            title: "התייעצויות ציבוריות",
+            text:
+              "חומרי התייעצות וסיכומי תגובות, ככל שפרסומם מתאים ותוך שמירה על פרטיות המשתתפים.",
+          },
         ],
       },
       consultation: {
         eyebrow: "תהליך פתוח ומשתף",
         title: "התייעצות ציבורית",
-        intro: "המיזם נמצא בשלב ראשוני. מטרת ההתייעצות היא לאסוף שאלות, הסתייגויות והצעות לפני אימוץ מודל מוסדי או מנדט ייצוגי כלשהו.",
+        intro:
+          "המיזם נמצא בשלב ראשוני. מטרת ההתייעצות היא לאסוף שאלות, הסתייגויות והצעות לפני אימוץ מודל מוסדי או מנדט ייצוגי כלשהו.",
         sections: [
-          { title: "מי יכול להשתתף", text: "יחידים יהודים, לרבות מי שאינם משתייכים לקהילה ממוסדת, וכן קהילות, עמותות, חוקרים וארגונים המעוניינים בכך, יכולים להעביר את עמדותיהם." },
-          { title: "שאלות לדיון", text: "כיצד יש להסדיר השתתפות של יחידים ושל גופים? אילו ערבויות נדרשות לפלורליזם, לשקיפות ולאחריותיות? באילו נושאים יש להתמקד? כיצד על המיזם לקיים יחסים עם ארגונים יהודיים קיימים ועם ישראל?" },
-          { title: "אין בכך הענקת מנדט", text: "השתתפות בהתייעצות אינה מקנה חברות, אינה מבטאת תמיכה ואינה מסמיכה לייצג אדם, קהילה או ארגון. המיזם אינו טוען כיום לייצוג התפוצה היהודית." },
-          { title: "כיצד להעביר עמדה", text: "אפשר לשלוח הערות, שאלות או הצעות בכתב לכתובת transnationaldiaspora@proton.me. יש לציין אם ניתן לצטט את הדברים בפומבי; אין לכלול מידע אישי אלא אם הדבר נחוץ." },
+          {
+            title: "מי יכול להשתתף",
+            text:
+              "יחידים יהודים, לרבות מי שאינם משתייכים לקהילה ממוסדת, וכן קהילות, עמותות, חוקרים וארגונים המעוניינים בכך, יכולים להעביר את עמדותיהם.",
+          },
+          {
+            title: "שאלות לדיון",
+            text:
+              "כיצד יש להסדיר השתתפות של יחידים ושל גופים? אילו ערבויות נדרשות לפלורליזם, לשקיפות ולאחריותיות? באילו נושאים יש להתמקד? האם ניתן להתאים לתפוצה היהודית עקרונות מתוך האסטרטגיות המקרו־אזוריות האירופיות והאירו־אזורים? כיצד על המיזם לקיים יחסים עם ארגונים יהודיים קיימים ועם ישראל?",
+          },
+          {
+            title: "אין בכך הענקת מנדט",
+            text:
+              "השתתפות בהתייעצות אינה מקנה חברות, אינה מבטאת תמיכה ואינה מסמיכה לייצג אדם, קהילה או ארגון. המיזם אינו טוען כיום לייצוג התפוצה היהודית.",
+          },
+          {
+            title: "כיצד להעביר עמדה",
+            text:
+              "אפשר לשלוח הערות, שאלות או הצעות בכתב לכתובת transnationaldiaspora@proton.me. יש לציין אם ניתן לצטט את הדברים בפומבי; אין לכלול מידע אישי אלא אם הדבר נחוץ.",
+          },
         ],
       },
       contact: {
         eyebrow: "הצטרפו לשיחה",
         title: "יצירת קשר",
-        intro: "המיזם נמצא בשלבי פיתוח. דיאלוג עם יחידים, קהילות, חוקרים וארגונים יכול לסייע בהבהרת מטרותיו ומבנהו העתידי.",
+        intro:
+          "המיזם נמצא בשלבי פיתוח. דיאלוג עם יחידים, קהילות, חוקרים וארגונים יכול לסייע בהבהרת מטרותיו ומבנהו העתידי.",
         sections: [
-          { title: "הבעת עניין", text: "ניתן לפנות למיזם כדי לשתף שאלות, הצעות, הבעת עניין או משוב על עקרונותיו ועל המשך פיתוחו." },
-          { title: "דיאלוג עם קהילות וארגונים", text: "אנו מעוניינים בדיאלוג בונה עם קהילות יהודיות, עמותות תרבות, אנשי אקדמיה וארגונים העוסקים בפלורליזם, בזכויות ובשיתוף פעולה טרנס־לאומי." },
-          { title: "לפני הפנייה", text: "המיזם עדיין אינו מוסד ייצוגי שהתאגד באופן רשמי. פנייה אליו אינה מעידה על חברות, תמיכה או השתייכות רשמית." },
+          {
+            title: "הבעת עניין",
+            text:
+              "ניתן לפנות למיזם כדי לשתף שאלות, הצעות, הבעת עניין או משוב על עקרונותיו ועל המשך פיתוחו.",
+          },
+          {
+            title: "דיאלוג עם קהילות וארגונים",
+            text:
+              "אנו מעוניינים בדיאלוג בונה עם קהילות יהודיות, עמותות תרבות, אנשי אקדמיה וארגונים העוסקים בפלורליזם, בזכויות ובשיתוף פעולה טרנס־לאומי.",
+          },
+          {
+            title: "לפני הפנייה",
+            text:
+              "המיזם עדיין אינו מוסד ייצוגי שהתאגד באופן רשמי. פנייה אליו אינה מעידה על חברות, תמיכה או השתייכות רשמית.",
+          },
         ],
       },
     },
   },
-};
-
-type SectionContent = {
-  eyebrow: string;
-  title: string;
-  intro: string;
-  sections: { title: string; text: string }[];
 };
 
 function Emblem({ compact = false }: { compact?: boolean }) {
@@ -516,9 +756,7 @@ export default function App() {
   ];
 
   const pageData =
-    page === "home"
-      ? null
-      : (t.pages[page] as SectionContent);
+    page === "home" ? null : (t.pages[page] as SectionContent);
 
   function navigate(nextPage: Page) {
     setPage(nextPage);
@@ -721,22 +959,28 @@ export default function App() {
             </section>
 
             <section className="detail-links">
-              {(["principles", "rights", "projects", "documents", "consultation"] as Page[]).map(
-                (key, index) => (
-                  <a
-                    href={`#${key}`}
-                    key={key}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate(key);
-                    }}
-                  >
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <strong>{t[key]}</strong>
-                    <Arrow />
-                  </a>
-                ),
-              )}
+              {(
+                [
+                  "principles",
+                  "rights",
+                  "projects",
+                  "documents",
+                  "consultation",
+                ] as Page[]
+              ).map((key, index) => (
+                <a
+                  href={`#${key}`}
+                  key={key}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate(key);
+                  }}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{t[key]}</strong>
+                  <Arrow />
+                </a>
+              ))}
             </section>
           </>
         ) : (
@@ -766,7 +1010,8 @@ export default function App() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 270px), 1fr))",
+                gridTemplateColumns:
+                  "repeat(auto-fit, minmax(min(100%, 270px), 1fr))",
                 gap: "1.25rem",
               }}
             >
@@ -803,29 +1048,119 @@ export default function App() {
             {page === "documents" && (
               <div style={{ marginTop: "2.5rem" }}>
                 <h2 style={{ color: "#092746", marginBottom: "1rem" }}>
-                  {isHebrew ? "מסמכים מלאים להורדה" : "Full documents for download"}
+                  {isHebrew
+                    ? "מסמכים מלאים להורדה"
+                    : "Full documents for download"}
                 </h2>
                 <p style={{ lineHeight: 1.8, maxWidth: "850px" }}>
                   {isHebrew
                     ? "המסמכים הבאים הם טיוטות פתוחות להתייעצות. הם אינם מסמכים שאומצו על ידי מוסד מייצג, שכן מוסד כזה טרם הוקם."
                     : "The following documents are drafts open for consultation. They have not been adopted by a representative institution, which has not yet been established."}
                 </p>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1rem", marginTop: "1.25rem" }}>
-                  <a href="/documents/manifesto-en.pdf" target="_blank" rel="noreferrer" style={{ ...cardStyle, display: "block", color: "#092746", textDecoration: "none" }}>
-                    <strong>{isHebrew ? "המניפסט המייסד — אנגלית" : "Founding Manifesto — English"}</strong>
-                    <p style={{ lineHeight: 1.7 }}>{isHebrew ? "טיוטה להתייעצות ציבורית" : "Draft for public consultation"} · PDF</p>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns:
+                      "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
+                    gap: "1rem",
+                    marginTop: "1.25rem",
+                  }}
+                >
+                  <a
+                    href="/documents/manifesto-en.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      ...cardStyle,
+                      display: "block",
+                      color: "#092746",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <strong>
+                      {isHebrew
+                        ? "המניפסט המייסד — אנגלית"
+                        : "Founding Manifesto — English"}
+                    </strong>
+                    <p style={{ lineHeight: 1.7 }}>
+                      {isHebrew
+                        ? "טיוטה להתייעצות ציבורית"
+                        : "Draft for public consultation"}{" "}
+                      · PDF
+                    </p>
                   </a>
-                  <a href="/documents/manifesto-he.pdf" target="_blank" rel="noreferrer" style={{ ...cardStyle, display: "block", color: "#092746", textDecoration: "none" }}>
-                    <strong>{isHebrew ? "המניפסט המייסד — עברית" : "Founding Manifesto — Hebrew"}</strong>
-                    <p style={{ lineHeight: 1.7 }}>{isHebrew ? "טיוטה להתייעצות ציבורית" : "Draft for public consultation"} · PDF</p>
+
+                  <a
+                    href="/documents/manifesto-he.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      ...cardStyle,
+                      display: "block",
+                      color: "#092746",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <strong>
+                      {isHebrew
+                        ? "המניפסט המייסד — עברית"
+                        : "Founding Manifesto — Hebrew"}
+                    </strong>
+                    <p style={{ lineHeight: 1.7 }}>
+                      {isHebrew
+                        ? "טיוטה להתייעצות ציבורית"
+                        : "Draft for public consultation"}{" "}
+                      · PDF
+                    </p>
                   </a>
-                  <a href="/documents/institutional-framework-en.pdf" target="_blank" rel="noreferrer" style={{ ...cardStyle, display: "block", color: "#092746", textDecoration: "none" }}>
-                    <strong>{isHebrew ? "מסמך הכוונה מוסדי — אנגלית" : "Institutional Framework — English"}</strong>
-                    <p style={{ lineHeight: 1.7 }}>{isHebrew ? "גרסה 1.0 · טיוטה להתייעצות" : "Version 1.0 · Draft for consultation"} · PDF</p>
+
+                  <a
+                    href="/documents/institutional-framework-en.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      ...cardStyle,
+                      display: "block",
+                      color: "#092746",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <strong>
+                      {isHebrew
+                        ? "מסמך הכוונה מוסדי — אנגלית"
+                        : "Institutional Framework — English"}
+                    </strong>
+                    <p style={{ lineHeight: 1.7 }}>
+                      {isHebrew
+                        ? "גרסה 1.0 · טיוטה להתייעצות"
+                        : "Version 1.0 · Draft for consultation"}{" "}
+                      · PDF
+                    </p>
                   </a>
-                  <a href="/documents/institutional-framework-he.pdf" target="_blank" rel="noreferrer" style={{ ...cardStyle, display: "block", color: "#092746", textDecoration: "none" }}>
-                    <strong>{isHebrew ? "מסמך הכוונה מוסדי — עברית" : "Institutional Framework — Hebrew"}</strong>
-                    <p style={{ lineHeight: 1.7 }}>{isHebrew ? "גרסה 1.0 · טיוטה להתייעצות" : "Version 1.0 · Draft for consultation"} · PDF</p>
+
+                  <a
+                    href="/documents/institutional-framework-he.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{
+                      ...cardStyle,
+                      display: "block",
+                      color: "#092746",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <strong>
+                      {isHebrew
+                        ? "מסמך הכוונה מוסדי — עברית"
+                        : "Institutional Framework — Hebrew"}
+                    </strong>
+                    <p style={{ lineHeight: 1.7 }}>
+                      {isHebrew
+                        ? "גרסה 1.0 · טיוטה להתייעצות"
+                        : "Version 1.0 · Draft for consultation"}{" "}
+                      · PDF
+                    </p>
                   </a>
                 </div>
               </div>
